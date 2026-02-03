@@ -1,8 +1,10 @@
 from __future__ import annotations
-from typing import List 
-
+from typing import List, Union
+import csv 
 
 class Produto:
+
+    """Esta é a classe mãe do nosso projeto, a classe produto """
 
     margem_lucro = 1 + (20 / 100)
 
@@ -72,39 +74,37 @@ class Produto:
 
         return self.__custo_unidade 
 
+    # Abrindo csv 
+
+    @staticmethod 
+    def abrir_csv(): 
+
+        """ Esta lê o csv e cria objetos apartir dos dados do csv 
+            e como todo objeto criado é adicionado ao atributo de classe
+            todos os objetos criados aprtir do csv são alocados no atributo de classe 
+            Produto.todas_instancias"""
+
+        with open('projeto_final/dados_empresa.csv', 'r') as f:
+
+            leitor = csv.DictReader(f)
+            itens = list(leitor)
+
+            for item in itens: 
+
+                Produto(item["nome"],
+                        item["descricao"],
+                        int(item["quantidade"]), 
+                        float(item["custo"]))
+
+
+
     # Utilizando um método mágico para exibir um atributo. 
 
     def __repr__(self)-> str:
 
         return f"{self.__class__.__name__}(\"{self.__nome}\")"
 
-produto_1 = Produto("Iphone 17", "512 GB | 16 GB ram", 100, 8000)
+# produto_1 = Produto("Iphone 17", "512 GB | 16 GB ram", 100, 8000) 
 
-# produto_1.info() 
-
-# print(produto_1.__dict__) # Acessando todos os atributos a nível de instância. 
-# print(Produto.__dict__)   # Acessando todos os atributos a nível de classe.
-
-
-# Caso desejemos alterar uma taxa nível de classe, basta criarmos 
-# um atributo de taxa relacionado apenas a instância
-
-class Telefone(Produto):
-
-    def __init__(self, nome: str, descricao: str, quantidade: int, custo: float, telefones_quebrados: int)-> None:
-
-        super().__init__(nome, descricao, quantidade, custo) 
-
-        assert telefones_quebrados >= 0, "Não pode haver menos de 0 telefones quebrados."
-
-        # Criamos um objeto produto e especializamos na classe filha. 
-
-        self.__telefones_quebrados = telefones_quebrados
-
-
-
-
-telefone = Telefone("Iphone 17", "256 GB | 16 ram", 10, 15000, 2)
-print(telefone)
-
-print(telefone.__class__.__name__)
+# Produto.abrir_csv()
+# print(Produto.todas_instancias)
