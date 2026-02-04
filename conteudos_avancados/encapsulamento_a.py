@@ -1,9 +1,5 @@
-# Encapsulamento - Uma forma de proteger os nossos atributos de acessos indevidos, limitando a leitura 
-# e a escrita, o bem conhecido getters e setters. 
+# Encapsulamento restrição de acesso diréto a atributos. 
 
-from __future__ import annotations 
-from typing import List 
-import time 
 
 class Produto:
 
@@ -74,22 +70,6 @@ class Produto:
         self.__preco = novo_preco 
 
 
-    # Métodos - pensando na técnica de abstração. 
-
-    def __metodo(self):
-        pass 
-
-    def __message(self):
-        return f"""{self.__nome} na promoção
-                por apenas {self.__preco} """
-
-    def enviar_email(self):
-
-        self.__metodo()
-        self.__message()
-
-        pass 
-
     # Método mágico que retorna uma string quando imprimimos os objetos desta classe, ao invés. 
 
     def __repr__(self):
@@ -105,9 +85,3 @@ print(produto_a.nome)
 produto_a.nome = "Aphone 18" # Não aleteramos o atributo original, apenas criamos um novo. 
 
 print(produto_a.nome)
-# print(produto_a.__nome)
-
-# produto_a.nome = "Iphone 18" # Sem os setters temos apenas uma lógica de leitura. 
-# # print(produto_a.nome)
-
-# print(produto_a)
